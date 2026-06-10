@@ -4,28 +4,39 @@ GPyEDS requires **Python 3.10-3.12** (3.12 recommended). The Gaussian-process an
 neural-network models are built on `gpflux`, which caps the stack at TensorFlow 2.16
 / Python 3.12.
 
-## From a local clone
+## Install directly from GitHub (recommended)
 
+No clone or build artifacts needed:
+
+    pip install "git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+With the optional GP / neural-network models (TensorFlow, GPflow, GPflux):
+
+    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+Pin to a tagged release for reproducible installs:
+
+    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git@v0.1.0"
+
+`uv` users can do the same:
+
+    uv pip install "git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+    # or add it to a project:
+    uv add "GPyEDS @ git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+The bare URL installs the repository's **default branch**; append `@<branch-or-tag>`
+to target a specific ref.
+
+## From a clone (for development)
+
+    git clone https://github.com/TomWilliamsBrown/GPyEDS.git
     cd GPyEDS
-    pip install .            # core toolbox
-    pip install '.[tf]'      # core + GP/NN models (TensorFlow, GPflow, GPflux)
+    pip install -e '.[tf]'           # editable install incl. the GP/NN extra
 
-For a reproducible environment from the pinned `uv.lock` (needs [uv](https://docs.astral.sh/uv/)):
+Or reproduce the exact pinned environment (incl. dev/test tools) with
+[uv](https://docs.astral.sh/uv/):
 
     uv sync --extra tf --extra test
-
-## Build a redistributable wheel (no Git host required)
-
-GPyEDS builds a single platform-independent wheel you can copy to any machine:
-
-    uv build                 # or:  pip install build && python -m build
-    # produces dist/gpyeds-0.0.1-py3-none-any.whl  (+ .tar.gz source dist)
-
-Copy the `.whl` to the target machine and install it directly; the dependencies are
-resolved from PyPI:
-
-    pip install gpyeds-0.0.1-py3-none-any.whl            # core
-    pip install 'gpyeds-0.0.1-py3-none-any.whl[tf]'      # core + GP/NN models
 
 ## Using the GP / neural-network models
 

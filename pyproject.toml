@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "GPyEDS"
-version = "0.0.1"
+version = "0.1.0"
 description = "Autoencoder-based unsupervised feature extraction toolbox."
 readme = "README.md"
 license = "MIT"
@@ -61,7 +61,8 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/norberttoth398/GPyEDS"
+Homepage = "https://github.com/TomWilliamsBrown/GPyEDS"
+Repository = "https://github.com/TomWilliamsBrown/GPyEDS.git"
 
 [tool.setuptools.packages.find]
 include = ["GPyEDS*"]

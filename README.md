@@ -1,5 +1,4 @@
 # GPyEDS
-[![codecov](https://codecov.io/gh/norberttoth398/GPyEDS/graph/badge.svg?token=I4Ukc39QBJ)](https://codecov.io/gh/norberttoth398/GPyEDS) [![Documentation Status](https://readthedocs.org/projects/gpyeds/badge/?version=latest)](https://gpyeds.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13837097.svg)](https://doi.org/10.5281/zenodo.13837097)
 
 Autoencoder-based unsupervised feature-extraction toolbox for energy-dispersive
 spectroscopy (EDS) data.
@@ -10,28 +9,46 @@ GPyEDS requires **Python 3.10-3.12** (3.12 recommended). The Gaussian-process an
 neural-network models are built on `gpflux`, which caps the stack at TensorFlow 2.16
 / Python 3.12.
 
-### From a local clone
+### Install directly from GitHub (recommended)
 
+No clone or build artifacts needed:
+
+    pip install "git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+With the optional GP / neural-network models (TensorFlow, GPflow, GPflux):
+
+    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+Pin to a tagged release for reproducible installs (recommended — see below):
+
+    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git@v0.1.0"
+
+`uv` users can do the same:
+
+    uv pip install "git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+    # or add it as a dependency of your own project:
+    uv add "GPyEDS @ git+https://github.com/TomWilliamsBrown/GPyEDS.git"
+
+> The bare URL installs the repository's **default branch**. Make sure your migrated
+> code is the default branch (e.g. `main`), or append `@<branch-or-tag>` to pick a
+> specific ref.
+
+### From a clone — exact tested environment (recommended for development / CI)
+
+This installs every dependency at the exact versions the test suite passed against
+(via the committed `uv.lock`) and fetches a matching Python automatically. Needs
+[uv](https://docs.astral.sh/uv/):
+
+    git clone https://github.com/TomWilliamsBrown/GPyEDS.git   # get the source + the committed uv.lock
     cd GPyEDS
-    pip install .            # core toolbox
-    pip install '.[tf]'      # core + GP/NN models (TensorFlow, GPflow, GPflux)
+    uv sync --extra tf --extra test                            # build the exact environment
 
-For a reproducible environment from the pinned `uv.lock` (needs [uv](https://docs.astral.sh/uv/)):
+Then run things with `uv run` (e.g. `uv run pytest`), or activate the env with
+`source .venv/bin/activate`.
 
-    uv sync --extra tf --extra test
+Prefer plain pip? An editable install that resolves dependencies fresh from PyPI:
 
-### Build a redistributable wheel (no Git host required)
-
-GPyEDS builds a single platform-independent wheel you can copy to any machine:
-
-    uv build                 # or:  pip install build && python -m build
-    # produces dist/gpyeds-0.0.1-py3-none-any.whl  (+ .tar.gz source dist)
-
-Copy the `.whl` to the target machine and install it directly; the dependencies are
-resolved from PyPI:
-
-    pip install gpyeds-0.0.1-py3-none-any.whl            # core
-    pip install 'gpyeds-0.0.1-py3-none-any.whl[tf]'      # core + GP/NN models
+    pip install -e '.[tf]'
 
 ## Usage
 
@@ -39,7 +56,13 @@ resolved from PyPI:
     from GPyEDS import mean_centre
 
 The GP and neural-network models (`GPyEDS.GPAM`, `GPyEDS.nn`) use the Keras-2 API.
-TensorFlow >= 2.16 defaults to Keras 3, so set the following before importing them
-(the core modules need nothing extra):
+TensorFlow >= 2.16 defaults to Keras 3, so set this before importing them (the core
+modules need nothing extra):
 
     export TF_USE_LEGACY_KERAS=1
+
+## Acknowledgements
+
+Based on the original GPyEDS by Norbert Toth
+([DOI:10.5281/zenodo.13837097](https://doi.org/10.5281/zenodo.13837097)).
+Distributed under the MIT License — see [LICENSE](LICENSE).
