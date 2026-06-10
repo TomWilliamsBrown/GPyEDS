@@ -1,0 +1,8 @@
+[flake8]
+# flake8 has no native pyproject.toml support and does not exclude virtualenvs by
+# default. Since uv creates an in-repo `.venv/`, `flake8 .` (as the CI workflow runs
+# it) would otherwise lint thousands of third-party files. Restrict linting to the
+# project's own code.
+exclude = .git,.venv,__pycache__,.pytest_cache,build,dist,*.egg-info
+max-line-length = 127
+max-complexity = 10

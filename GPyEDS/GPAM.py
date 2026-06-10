@@ -1,3 +1,10 @@
+import os
+
+# gpflow/gpflux are Keras-2 code; TensorFlow >= 2.16 defaults to Keras 3, so
+# force the legacy tf-keras backend before importing gpflow (which pulls in
+# TensorFlow). Has no effect on TensorFlow < 2.16.
+os.environ.setdefault("TF_USE_LEGACY_KERAS", "1")
+
 import gpflow
 import gpflux
 import tensorflow as tf

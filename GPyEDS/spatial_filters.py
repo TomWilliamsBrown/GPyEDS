@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
+import scipy.signal
 
 def gkern(l=5, sig=1.):
     """

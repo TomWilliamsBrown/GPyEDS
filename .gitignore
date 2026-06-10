@@ -2,3 +2,20 @@
 __pycache__
 *.icloud
 .ipynb_checkpoints
+
+# uv-managed virtualenv (uv also writes .venv/.gitignore; this is belt-and-suspenders)
+.venv/
+
+# Packaging / build artifacts
+*.egg-info/
+build/
+dist/
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Files written to cwd by the EDS2CHEM.mcmc routines during the tests
+emcee_res.pkl
+mcmc.h5

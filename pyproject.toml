@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "GPyEDS"
+version = "0.0.1"
+description = "Autoencoder-based unsupervised feature extraction toolbox."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10,<3.13"
+authors = [{ name = "norberttoth398", email = "nt398@cam.ac.uk" }]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+
+# Core runtime dependencies. These are the only packages the non-TensorFlow part
+# of the toolbox (utils, spatial_filters, mean_centre, EDS2CHEM.mcmc) needs, and
+# they all support Python 3.12. numpy is held below 2.0 because the optional GP
+# stack (gpflux) requires it and we run everything in a single environment.
+dependencies = [
+    "numpy>=1.24,<2",
+    "scipy>=1.11",
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+    "scikit-image>=0.22",
+    "scikit-learn>=1.4",
+    "emcee>=3.1.4",
+    "h5py>=3.10",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+# Deep-GP / neural-net stack used by GPyEDS.GPAM and GPyEDS.nn.
+# gpflux is unmaintained and caps tensorflow<2.17 + numpy<2, so on Python 3.12
+# the resolver lands on tensorflow 2.16.x (the newest <2.17 with cp312 wheels).
+# gpflux itself selects tensorflow (Linux) vs tensorflow-macos (Apple Silicon).
+# TF 2.16 defaults to Keras 3, but gpflow/gpflux/nn.py are Keras-2 code, so we
+# add tf-keras and set TF_USE_LEGACY_KERAS=1 (see conftest.py / the modules).
+tf = [
+    "gpflow>=2.9.2",
+    "gpflux>=0.4.4",
+    "tf-keras>=2.16,<2.17",
+    "tensorflow-probability>=0.24,<0.25",
+]
+docs = [
+    "mkdocs-jupyter",
+    "mkdocstrings",
+    "mkdocstrings-python",
+    "mkdocs-toc-md",
+    "myst-parser",
+]
+test = [
+    "pytest",
+    "pytest-cov",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/norberttoth398/GPyEDS"
+
+[tool.setuptools.packages.find]
+include = ["GPyEDS*"]

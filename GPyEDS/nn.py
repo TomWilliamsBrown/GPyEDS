@@ -2,6 +2,11 @@ import os
 import numpy as np
 from pathlib import Path
 import os
+
+# nn.py uses the Keras-2 functional API (input_dim=, encoder.input). TensorFlow
+# >= 2.16 defaults to Keras 3, so force the legacy tf-keras backend before
+# importing TensorFlow. Has no effect on TensorFlow < 2.16.
+os.environ.setdefault("TF_USE_LEGACY_KERAS", "1")
 import tensorflow as tf
 
 
