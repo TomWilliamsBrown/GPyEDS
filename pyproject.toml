@@ -39,8 +39,9 @@ dependencies = [
 # gpflux is unmaintained and caps tensorflow<2.17 + numpy<2, so on Python 3.12
 # the resolver lands on tensorflow 2.16.x (the newest <2.17 with cp312 wheels).
 # gpflux itself selects tensorflow (Linux) vs tensorflow-macos (Apple Silicon).
-# TF 2.16 defaults to Keras 3, but gpflow/gpflux/nn.py are Keras-2 code, so we
-# add tf-keras and set TF_USE_LEGACY_KERAS=1 (see conftest.py / the modules).
+# TF 2.16 defaults to Keras 3. nn.py is Keras-3-native; gpflow/gpflux use the
+# Keras-2 API internally, so tf-keras must be installed (GPAM hands gpflux a
+# tf_keras optimizer). No TF_USE_LEGACY_KERAS environment variable is needed.
 tf = [
     "gpflow>=2.9.2",
     "gpflux>=0.4.4",

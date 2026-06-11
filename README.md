@@ -55,11 +55,13 @@ Prefer plain pip? An editable install that resolves dependencies fresh from PyPI
     import GPyEDS
     from GPyEDS import mean_centre
 
-The GP and neural-network models (`GPyEDS.GPAM`, `GPyEDS.nn`) use the Keras-2 API.
-TensorFlow >= 2.16 defaults to Keras 3, so set this before importing them (the core
-modules need nothing extra):
+The GP and neural-network models are available as `GPyEDS.GPAM` and `GPyEDS.nn`
+(install the optional `[tf]` extra). No special environment variables are required.
 
-    export TF_USE_LEGACY_KERAS=1
+# Running 
+
+Run scripts with uv run script.py
+Initialise projects with uv init and add dependencies with uv add package
 
 ## Acknowledgements
 

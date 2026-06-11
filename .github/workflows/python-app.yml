@@ -18,8 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # gpflow/gpflux/nn.py are Keras-2 code; TensorFlow >= 2.16 defaults to Keras 3.
-      TF_USE_LEGACY_KERAS: "1"
       # Headless matplotlib backend for the plotting tests.
       MPLBACKEND: "Agg"
 

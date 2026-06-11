@@ -1,17 +1,9 @@
-import os
-
-# gpflow/gpflux are Keras-2 code; TensorFlow >= 2.16 defaults to Keras 3, so
-# force the legacy tf-keras backend before importing gpflow (which pulls in
-# TensorFlow). Has no effect on TensorFlow < 2.16.
-os.environ.setdefault("TF_USE_LEGACY_KERAS", "1")
-
 import gpflow
 import gpflux
-import tensorflow as tf
+import tf_keras
 import matplotlib.pylab as plt
 import numpy as np
 from pathlib import Path
-import os
 
 def create_two_layer_GPAM_from_data(input_data, num_inducing = 50, return_layers = False, n_latent = 2):
     """Generator function to create 2 layer GP using GPFlux given a dataset and its dimensions etc.
@@ -48,13 +40,16 @@ def create_two_layer_GPAM_from_data(input_data, num_inducing = 50, return_layers
     likelihood_layer = gpflux.layers.LikelihoodLayer(gpflow.likelihoods.Gaussian(0.1))
     two_layer_dgp = gpflux.models.DeepGP([gp_layer1, gp_layer2], likelihood_layer)
     model = two_layer_dgp.as_training_model()
-    model.compile(tf.optimizers.Adam(0.01))
+    # gpflux builds a tf_keras (Keras-2) model, so compile it with a tf_keras
+    # optimizer. This keeps GPAM working under the default Keras 3 backend
+    # without needing the TF_USE_LEGACY_KERAS environment variable.
+    model.compile(tf_keras.optimizers.Adam(0.01))
 
     if return_layers:
         return model, gp_layer1, gp_layer2
     else:
         return model
-    
+
 def create_two_layer_GPAM_from_scratch(num_input, num_data = 1, Z = None, num_inducing = 50, return_layers = False, n_latent = 2):
     """Generator function to create two layer GPAM model in GPFlux. 
     Args:
@@ -93,7 +88,7 @@ def create_two_layer_GPAM_from_scratch(num_input, num_data = 1, Z = None, num_in
     likelihood_layer = gpflux.layers.LikelihoodLayer(gpflow.likelihoods.Gaussian(0.1))
     two_layer_dgp = gpflux.models.DeepGP([gp_layer1, gp_layer2], likelihood_layer)
     model = two_layer_dgp.as_training_model()
-    model.compile(tf.optimizers.Adam(0.01))
+    model.compile(tf_keras.optimizers.Adam(0.01))
 
     if return_layers:
         return model, gp_layer1, gp_layer2

@@ -40,8 +40,5 @@ Or reproduce the exact pinned environment (incl. dev/test tools) with
 
 ## Using the GP / neural-network models
 
-`GPyEDS.GPAM` and `GPyEDS.nn` use the Keras-2 API. TensorFlow >= 2.16 defaults to
-Keras 3, so set the following before importing them (the core modules need nothing
-extra):
-
-    export TF_USE_LEGACY_KERAS=1
+`GPyEDS.GPAM` and `GPyEDS.nn` require the optional `[tf]` extra (TensorFlow / GPflow /
+GPflux). No special environment variables are required.
