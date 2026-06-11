@@ -21,7 +21,7 @@ With the optional GP / neural-network models (TensorFlow, GPflow, GPflux):
 
 Pin to a tagged release for reproducible installs (recommended — see below):
 
-    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git@v0.1.0"
+    pip install "GPyEDS[tf] @ git+https://github.com/TomWilliamsBrown/GPyEDS.git@1.0.1"
 
 `uv` users can do the same:
 
