@@ -32,6 +32,8 @@ dependencies = [
     "emcee>=3.1.4",
     "h5py>=3.10",
     "tqdm",
+    "chardet>=7.4.3",
+    "corner>=2.2.3",
 ]
 
 [project.optional-dependencies]
@@ -67,3 +69,9 @@ Repository = "https://github.com/TomWilliamsBrown/GPyEDS.git"
 
 [tool.setuptools.packages.find]
 include = ["GPyEDS*"]
+
+# Deprecated top-level compatibility shim for the old ``MCMC_emcee`` module.
+# Kept as a standalone module (not a package) so legacy ``import MCMC_emcee``
+# keeps resolving after install.
+[tool.setuptools]
+py-modules = ["MCMC_emcee"]
