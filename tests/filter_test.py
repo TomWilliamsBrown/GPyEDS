@@ -26,4 +26,4 @@ def test_mean():
 
 def test_gaussian():
     cmap, mask = create_data()
-    res = spatial_filters.linear_filter(cmap, mask, 1, type = "gaussian")
+    res = spatial_filters.linear_filter(cmap, mask, 1, type_="gaussian")

@@ -1,5 +1,5 @@
 from GPyEDS import nn
-import numpy as np
+
 
 def test_nn_AE():
 

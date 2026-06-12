@@ -1,9 +1,7 @@
-import numpy as np
-from pathlib import Path
 import tensorflow as tf
 
 
-def create_nn_AE(input_dim, latent_dim = 2, hidden = [10], activation = "relu"):
+def create_nn_AE(input_dim, latent_dim=2, hidden=None, activation="relu"):
     """Generator function for neural network autoencoder architecture. 
 
     Args:
@@ -16,6 +14,8 @@ def create_nn_AE(input_dim, latent_dim = 2, hidden = [10], activation = "relu"):
         model (TF model): Autoencoder model.
     """
 
+    if hidden is None:
+        hidden = [10]
     enc_list = []
     for i in range(len(hidden)):
         enc_list.append(tf.keras.layers.Dense(hidden[i], activation=activation))
@@ -24,7 +24,7 @@ def create_nn_AE(input_dim, latent_dim = 2, hidden = [10], activation = "relu"):
 
     dec_list = []
     for i in range(len(hidden)):
-        dec_list.append(tf.keras.layers.Dense(hidden[::-1][i], activation = activation))
+        dec_list.append(tf.keras.layers.Dense(hidden[::-1][i], activation=activation))
         dec_list.append(tf.keras.layers.LayerNormalization())
         dec_list.append(tf.keras.layers.LeakyReLU(0.02))
 
@@ -40,4 +40,3 @@ def create_nn_AE(input_dim, latent_dim = 2, hidden = [10], activation = "relu"):
     model = tf.keras.Model(inputs=inputs, outputs=decoder(latent(encoder(inputs))))
 
     return model, (encoder, latent, decoder)
-

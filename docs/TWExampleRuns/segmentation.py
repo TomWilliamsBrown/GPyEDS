@@ -288,7 +288,7 @@ def main(argv=None):
     # The raw component is noisy; apply a spatial smoothing filter.
     fig = plt.figure(figsize=(12, 12))
     filt = spatial_filters.linear_filter(
-        scores[:, :, 0], mask=phase, range_=args.filter_range, type="gaussian"
+        scores[:, :, 0], mask=phase, range_=args.filter_range, type_="gaussian"
     )
     plt.imshow(filt, interpolation="none", vmin=-50, vmax=50)
     output_figs("13_score_component0_filtered")

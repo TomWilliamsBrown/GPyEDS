@@ -43,7 +43,7 @@ dependencies = [
 # gpflux itself selects tensorflow (Linux) vs tensorflow-macos (Apple Silicon).
 # TF 2.16 defaults to Keras 3. nn.py is Keras-3-native; gpflow/gpflux use the
 # Keras-2 API internally, so tf-keras must be installed (GPAM hands gpflux a
-# tf_keras optimizer). No TF_USE_LEGACY_KERAS environment variable is needed.
+# tf_keras optimizer).
 tf = [
     "gpflow>=2.9.2",
     "gpflux>=0.4.4",

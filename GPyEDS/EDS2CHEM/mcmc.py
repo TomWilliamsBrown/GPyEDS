@@ -179,7 +179,7 @@ def align(inputmatrix, theta, pos, **kwargs):
 
 
 
-class logfuncs():
+class logfuncs:
      
     def __init__(self,pmin, pmax):
           #super().__init___(pmin, pmax)
@@ -242,7 +242,7 @@ class logfuncs():
             return -np.inf
         return lp + self.log_likelihood(theta, x, y, yerr, pos)
     
-class simple_logfuncs():
+class simple_logfuncs:
      
     def __init__(self,pmin, pmax):
           #super().__init___(pmin, pmax)
