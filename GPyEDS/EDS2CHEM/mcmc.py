@@ -1,6 +1,5 @@
 # %% 
 import numpy as np
-import scipy.interpolate as interpolate
 
 
 def draw_line(img, x0, y0, x1, y1, value = 1, pstep = None):
@@ -130,8 +129,7 @@ def align_once(inputmatrix, pos, theta):
             steps = np.concatenate([[0], steps])
             vals = np.concatenate([[0], vals])
 
-    interpolation = interpolate.interp1d(steps/np.max(steps), vals)
-    trial_x = interpolation(np.abs(pos/n))
+    trial_x = np.interp(np.abs(pos/n), steps/np.max(steps), vals)
     return trial_x
 
 
@@ -172,8 +170,7 @@ def align(inputmatrix, theta, pos, **kwargs):
             steps = np.concatenate([[0], steps])
             vals = np.concatenate([[0], vals])
 
-    interpolation = interpolate.interp1d(steps/np.max(steps), vals)
-    trial_x = interpolation(np.abs(pos/n))
+    trial_x = np.interp(np.abs(pos/n), steps/np.max(steps), vals)
 
     return trial_x*slope + intercept
 
